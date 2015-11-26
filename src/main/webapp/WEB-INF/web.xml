@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app metadata-complete="false" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app metadata-complete="false" version="3.1"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <description>View login</description>
+        <servlet-name>login page</servlet-name>
+        <jsp-file>/IPPS/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login page</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <description>View dashboard</description>
+        <servlet-name>dashboard page</servlet-name>
+        <jsp-file>/IPPS/dashboard.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dashboard page</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>View Manajemen User</description>
+        <servlet-name>Manage User page</servlet-name>
+        <jsp-file>/IPPS/manajemenuser.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Manage User page</servlet-name>
+        <url-pattern>/manage+user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description>View Input Data</description>
+        <servlet-name>input data page</servlet-name>
+        <jsp-file>/IPPS/inputdata.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>input data page</servlet-name>
+        <url-pattern>/input+data</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description>View Lihat Data</description>
+        <servlet-name>lihat data page</servlet-name>
+        <jsp-file>/IPPS/lihatdata.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>lihat data page</servlet-name>
+        <url-pattern>/lihat+data</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>View pesan</description>
+        <servlet-name>pesan page</servlet-name>
+        <jsp-file>/IPPS/messages.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pesan page</servlet-name>
+        <url-pattern>/messages</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description>View User Profile</description>
+        <servlet-name>profile page</servlet-name>
+        <jsp-file>/IPPS/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile page</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <!--
+        <servlet>
+            <description>Page untuk memanajemen user</description>
+            <servlet-name>Manajemen User</servlet-name>
+            <jsp-file>/manuser.jsp</jsp-file>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>Manajemen User</servlet-name>
+            <url-pattern>/manage-user</url-pattern>
+        </servlet-mapping>
+        -->
+    <!--
+    <error-page>
+    <error-code>401</error-code>
+    <location>/</location>
+</error-page>
+<error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/Error</location>
+</error-page>
+<servlet>
+    <servlet-name>Loginz</servlet-name>
+    <servlet-class>Controller.Loginz</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>Loginz</servlet-name>
+    <url-pattern>/Loginz</url-pattern>
+</servlet-mapping>
+-->
+
     <session-config>
         <session-timeout>
             10

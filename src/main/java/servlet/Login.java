@@ -2,10 +2,7 @@ package servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
@@ -16,11 +13,8 @@ import java.io.IOException;
         urlPatterns = {"/Login"}    )
 public class Login extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -28,27 +22,19 @@ public class Login extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user;
-        String level;
-        //for debug only
         boolean UserExist = Priv.doLogin(request.getParameter("username"), request.getParameter("password"));
         if (UserExist) {
-            System.out.println("user exist");
-            user = Priv.User;
-            level = Priv.Level;
-        } else {
-            System.out.println("userNOTexist");
-            user = null;
-            level = null;
-        }
-
-        if (!"".equals(user) && user != null) {
+            O_User User = Priv.UserData();
             HttpSession session = request.getSession(true);
-            session.setAttribute("user", user);
-            session.setAttribute("level", level);
+            session.setAttribute("user", User.getUsername());
+            session.setAttribute("nama", User.getNama());
+            session.setAttribute("level", User.getLevel());
+            session.setAttribute("lastlogin", User.getLastLogin());
             response.sendRedirect("dashboard");
         } else {
-            response.sendRedirect("");
+            System.out.println("Status: Failed to loging in");
+            response.setIntHeader("lgn",0);
+            response.sendRedirect("/login");
         }
     }
 
