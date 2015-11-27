@@ -24,6 +24,15 @@
     </servlet-mapping>
 
     <servlet>
+        <description>View Details</description>
+        <servlet-name>details page</servlet-name>
+        <jsp-file>/IPPS/details.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>details page</servlet-name>
+        <url-pattern>/ExportCSADetails</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <description>View Manajemen User</description>
         <servlet-name>Manage User page</servlet-name>
         <jsp-file>/IPPS/manajemenuser.jsp</jsp-file>

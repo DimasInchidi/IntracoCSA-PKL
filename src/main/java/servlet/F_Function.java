@@ -207,6 +207,11 @@ public class F_Function extends F_Koneksi {
         }
     }
 
+    public O_DataDetails DataDetails(String level){
+        O_DataDetails data = new O_DataDetails();
+
+        return data;
+    }
 
     public O_DataTables TableData(int tahun, int bulan, int projectindex, String project){
         O_DataTables tables = new O_DataTables();

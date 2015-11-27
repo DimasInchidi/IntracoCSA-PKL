@@ -9,14 +9,14 @@ import java.util.Properties;
 public class F_Koneksi {
 
     static {
-//        JDBC_DRIVER = "org.postgresql.Driver";
-//        DB_URL = "jdbc:postgresql://ec2-54-204-15-48.compute-1.amazonaws.com:5432/d43cvp6kpf1the";
-//        USER = "khwivmymedwodp";
-//        PASS = "rnNyTeGxo0PCll83A-6Db__n4v";
-        JDBC_DRIVER = "com.mysql.jdbc.Driver";
-        DB_URL = "jdbc:mysql://localhost/IntracoCSA";
-        USER = "root";
-        PASS = "r00t";
+        JDBC_DRIVER = "org.postgresql.Driver";
+        DB_URL = "jdbc:postgresql://ec2-54-204-15-48.compute-1.amazonaws.com:5432/d43cvp6kpf1the";
+        USER = "khwivmymedwodp";
+        PASS = "rnNyTeGxo0PCll83A-6Db__n4v";
+//        JDBC_DRIVER = "com.mysql.jdbc.Driver";
+//        DB_URL = "jdbc:mysql://localhost/IntracoCSA";
+//        USER = "root";
+//        PASS = "r00t";
     }
 
     private static final String JDBC_DRIVER;

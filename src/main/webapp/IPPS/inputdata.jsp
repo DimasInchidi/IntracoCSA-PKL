@@ -30,7 +30,6 @@
         String task = request.getParameter("task");
         if (task ==null) task = "none";
         O_DataInput Data = FF.InputData(task, tahun,bulan,project,null,null);
-
     %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

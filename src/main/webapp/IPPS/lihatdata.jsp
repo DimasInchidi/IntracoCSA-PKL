@@ -202,7 +202,7 @@ if (session.getAttribute("level") == null || session.getAttribute("level").toStr
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="/ExportCSAPerformance">Export Data Details Document</a>
+                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="/ExportCSADetails?exportToExcel=true">Export Data Details Document</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
