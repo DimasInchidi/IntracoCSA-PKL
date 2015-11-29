@@ -45,6 +45,14 @@
                     <div class="panel-body">
                         <form action="/Login" method="post">
                             <fieldset>
+
+                                <div class="form-group">
+                                    <input class="hidden" name="redirect" value="<%if (request.getParameter("redirect")!=null) {
+                                    out.print(request.getParameter("redirect").replaceAll(" ","+"));
+                                    }else{
+                                    out.print("/dashboard");
+                                    }%>">
+                                </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Username" name="username" type="username" autofocus>
                                 </div>

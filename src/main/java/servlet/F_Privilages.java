@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by inchidi on 29/10/15.
- */
 public class F_Privilages extends F_Koneksi {
 
     List<String> user ;

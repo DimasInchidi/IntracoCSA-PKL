@@ -30,7 +30,13 @@ public class Login extends HttpServlet {
             session.setAttribute("nama", User.getNama());
             session.setAttribute("level", User.getLevel());
             session.setAttribute("lastlogin", User.getLastLogin());
-            response.sendRedirect("dashboard");
+
+            if (request.getParameter("redirect")!=null){
+                String redirect = request.getParameter("redirect");
+                response.sendRedirect(redirect);
+            }else {
+                response.sendRedirect("dashboard");
+            }
         } else {
             System.out.println("Status: Failed to loging in");
             response.setIntHeader("lgn",0);
