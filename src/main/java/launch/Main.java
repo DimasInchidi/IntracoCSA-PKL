@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         String webappDirLocation = "src/main/webapp/";
         String buildPath = "target/classes";
-        String                                                                                                                                                                                                                                                               webAppMount = "/WEB-INF/classes";
+        String webAppMount = "/WEB-INF/classes";
         //okdah
 
         Tomcat tomcat = new Tomcat();
@@ -40,3 +40,4 @@ public class Main {
         tomcat.getServer().await();
     }
 }
+
