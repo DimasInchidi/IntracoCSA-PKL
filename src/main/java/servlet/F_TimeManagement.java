@@ -8,6 +8,12 @@
 package servlet;
 
 import java.util.Calendar;
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -15,11 +21,18 @@ import java.util.Calendar;
  */
 public class F_TimeManagement extends F_Koneksi {
 
+    private static final Logger LOG = getLogger(F_TimeManagement.class.getName());
+
     Calendar c;
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String getTanggalS(Calendar c){
         String STanggal = "";
-        int Tanggal = c.get(Calendar.DATE);
+        int Tanggal = c.get(DATE);
         int puluhan =Tanggal;
         if( puluhan == 10){
             STanggal +=" sepuluh";
@@ -37,13 +50,23 @@ public class F_TimeManagement extends F_Koneksi {
         return STanggal;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public int getTanggal(Calendar c) {
-        return c.get(Calendar.DATE);
+        return c.get(DATE);
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String getHari(Calendar c) {
         String Hari;
-        switch (c.get(Calendar.DAY_OF_WEEK)) {
+        switch (c.get(DAY_OF_WEEK)) {
             case 2:
                 Hari = "Senin";
                 break;
@@ -71,9 +94,14 @@ public class F_TimeManagement extends F_Koneksi {
         return Hari;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String getBulan(Calendar c) {
         String Bulan;
-        switch (c.get(Calendar.MONTH)) {
+        switch (c.get(MONTH)) {
             case 0:
                 Bulan = "Januari";
                 break;
@@ -116,6 +144,11 @@ public class F_TimeManagement extends F_Koneksi {
         return Bulan;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public String getBulan(int i) {
         String Bulan;
         switch (i) {
@@ -161,9 +194,14 @@ public class F_TimeManagement extends F_Koneksi {
         return Bulan;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String getTahun(Calendar c) {
         String STahun = "";
-        int tahun = c.get(Calendar.YEAR);
+        int tahun = c.get(YEAR);
         if(tahun/100==20){STahun="dua ribu ";}
         int puluhan =tahun-((tahun/100)*100);
         if( puluhan == 10){
@@ -179,8 +217,13 @@ public class F_TimeManagement extends F_Koneksi {
         return STahun;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public int getTahunint(Calendar c){
-        return c.get(Calendar.YEAR);
+        return c.get(YEAR);
     }
 
     private String intToString(int i) {

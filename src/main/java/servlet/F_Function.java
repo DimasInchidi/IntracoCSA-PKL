@@ -7,22 +7,28 @@
  */
 package servlet;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.Math.round;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.logging.Logger;
+import static org.apache.commons.lang3.ArrayUtils.toPrimitive;
 
 /**
  *
- * @author inchidi
+ * @author DimasInchidi
  */
 public class F_Function extends F_Koneksi {
 
     DecimalFormat RpDoubleFormat = new DecimalFormat("#,###.##;(#,###.##)");
 
+    /**
+     *
+     */
     final public Object[] Desk = {
             "SPARE PARTS",
             "SERVICE (LABOUR)/SMC",
@@ -36,6 +42,22 @@ public class F_Function extends F_Koneksi {
             "OPR. PROFIT"
     };
 
+    /**
+     *
+     */
+    public String[] TempData; //index 0 for String key
+    final String[] kolomDB = {"Spare Parts", "SMC", "FMC", "REVENUE", "COST OF SALES (SPARE PARTS)", "COST OF SALES (SERVICE)", "Periodic Maintenance", "Part Repair", "Part R & I", "Component", "GET & Undercarriage Group", "Warranty & Campaign", "Consumable", "TOTAL COGS", "GROSS PROFIT", "EXPENSES", "Employee Expenses", "Asset Depreciation", "Operation Expenses", "OPR. PROFIT", "PROFIT % OF SALES"};
+
+    /**
+     *
+     * @param tsk
+     * @param tahun
+     * @param bulan
+     * @param project
+     * @param dtiA
+     * @param dtiT
+     * @return
+     */
     public O_DataInput InputData(String tsk, int tahun, int bulan, String project, Object dtiA, Object dtiT){
         O_DataInput data = new O_DataInput();
         String[] datainputActual = (String[]) dtiA;
@@ -50,50 +72,50 @@ public class F_Function extends F_Koneksi {
             ReloadTextData(project,bulan,tahun,"target", data);
         } else {
             //actual data
-            data.setSPAREPARTS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[0])));
-            data.setSMC_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[1])));
-            data.setFMS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[2])));
-            data.setREVENUE_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[3])));
-            data.setCOSTOFSALES_SPAREPARTS__Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[5])));
-            data.setCOSTOFSALES_SERVICE__Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[4])));
-            data.setPeriodicMaintenance_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[6])));
-            data.setPartRepair_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[7])));
-            data.setPartRAndI_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[8])));
-            data.setComponent_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[9])));
-            data.setGETAndUndercarriageGroup_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[10])));
-            data.setWarrantyAndCampaign_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[11])));
-            data.setConsumable_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[12])));
-            data.setTOTALCOGS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[13])));
-            data.setGROSSPROFIT_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[14])));
-            data.setEXPENSES_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[15])));
-            data.setEmployeeExpenses_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[16])));
-            data.setAssetDepreciation_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[17])));
-            data.setOperationExpenses_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[18])));
-            data.setOPRPROFIT_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[19])));
-            data.setPROFITPercentOFSALESActual(RpDoubleFormat.format(1000 * Double.parseDouble(datainputActual[20])));
+            data.setSPAREPARTS_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[0])));
+            data.setSMC_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[1])));
+            data.setFMS_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[2])));
+            data.setREVENUE_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[3])));
+            data.setCOSTOFSALES_SPAREPARTS__Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[5])));
+            data.setCOSTOFSALES_SERVICE__Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[4])));
+            data.setPeriodicMaintenance_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[6])));
+            data.setPartRepair_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[7])));
+            data.setPartRAndI_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[8])));
+            data.setComponent_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[9])));
+            data.setGETAndUndercarriageGroup_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[10])));
+            data.setWarrantyAndCampaign_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[11])));
+            data.setConsumable_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[12])));
+            data.setTOTALCOGS_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[13])));
+            data.setGROSSPROFIT_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[14])));
+            data.setEXPENSES_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[15])));
+            data.setEmployeeExpenses_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[16])));
+            data.setAssetDepreciation_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[17])));
+            data.setOperationExpenses_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[18])));
+            data.setOPRPROFIT_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[19])));
+            data.setPROFITPercentOFSALESActual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[20])));
 
             //target data
-            data.setSPAREPARTS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[0])));
-            data.setSMC_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[1])));
-            data.setFMS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[2])));
-            data.setREVENUE_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[3])));
-            data.setCOSTOFSALES_SPAREPARTS__Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[5])));
-            data.setCOSTOFSALES_SERVICE__Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[4])));
-            data.setPeriodicMaintenance_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[6])));
-            data.setPartRepair_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[7])));
-            data.setPartRAndI_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[8])));
-            data.setComponent_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[9])));
-            data.setGETAndUndercarriageGroup_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[10])));
-            data.setWarrantyAndCampaign_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[11])));
-            data.setConsumable_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[12])));
-            data.setTOTALCOGS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[13])));
-            data.setGROSSPROFIT_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[14])));
-            data.setEXPENSES_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[15])));
-            data.setEmployeeExpenses_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[16])));
-            data.setAssetDepreciation_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[17])));
-            data.setOperationExpenses_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[18])));
-            data.setOPRPROFIT_Target(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[19])));
-            data.setPROFITPercentOFSALESTarget(RpDoubleFormat.format(1000 * Double.parseDouble(datainputTarget[20])));
+            data.setSPAREPARTS_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[0])));
+            data.setSMC_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[1])));
+            data.setFMS_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[2])));
+            data.setREVENUE_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[3])));
+            data.setCOSTOFSALES_SPAREPARTS__Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[5])));
+            data.setCOSTOFSALES_SERVICE__Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[4])));
+            data.setPeriodicMaintenance_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[6])));
+            data.setPartRepair_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[7])));
+            data.setPartRAndI_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[8])));
+            data.setComponent_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[9])));
+            data.setGETAndUndercarriageGroup_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[10])));
+            data.setWarrantyAndCampaign_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[11])));
+            data.setConsumable_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[12])));
+            data.setTOTALCOGS_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[13])));
+            data.setGROSSPROFIT_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[14])));
+            data.setEXPENSES_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[15])));
+            data.setEmployeeExpenses_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[16])));
+            data.setAssetDepreciation_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[17])));
+            data.setOperationExpenses_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[18])));
+            data.setOPRPROFIT_Target(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[19])));
+            data.setPROFITPercentOFSALESTarget(RpDoubleFormat.format(1_000 * parseDouble(datainputTarget[20])));
         }
                 return data;
     }
@@ -107,67 +129,80 @@ public class F_Function extends F_Koneksi {
         if (tipe.equals("target")) {
 
             //revenue
-            data.setSPAREPARTS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[5])));
-            data.setSMC_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[1 + 5])));
-            data.setFMS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[2 + 5])));
-            data.setREVENUE_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[3 + 5])));
+            data.setSPAREPARTS_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[5])));
+            data.setSMC_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[1 + 5])));
+            data.setFMS_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[2 + 5])));
+            data.setREVENUE_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[3 + 5])));
             //cost
-            data.setCOSTOFSALES_SPAREPARTS__Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[4 + 5])));
-            data.setCOSTOFSALES_SERVICE__Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[5 + 5])));
+            data.setCOSTOFSALES_SPAREPARTS__Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[4 + 5])));
+            data.setCOSTOFSALES_SERVICE__Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[5 + 5])));
 
-            data.setPeriodicMaintenance_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[6 + 5])));
-            data.setPartRepair_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[7 + 5])));
-            data.setPartRAndI_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[8 + 5])));
-            data.setComponent_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[9 + 5])));
-            data.setGETAndUndercarriageGroup_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[10 + 5])));
-            data.setWarrantyAndCampaign_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[11 + 5])));
-            data.setConsumable_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[12 + 5])));
+            data.setPeriodicMaintenance_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[6 + 5])));
+            data.setPartRepair_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[7 + 5])));
+            data.setPartRAndI_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[8 + 5])));
+            data.setComponent_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[9 + 5])));
+            data.setGETAndUndercarriageGroup_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[10 + 5])));
+            data.setWarrantyAndCampaign_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[11 + 5])));
+            data.setConsumable_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[12 + 5])));
 
             //TODO: sebelumnya ga ada
-            data.setTOTALCOGS_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[13 + 5])));
-            data.setGROSSPROFIT_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[14 + 5])));
+            data.setTOTALCOGS_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[13 + 5])));
+            data.setGROSSPROFIT_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[14 + 5])));
             //expenses
-            data.setEXPENSES_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[15 + 5])));
-            data.setEmployeeExpenses_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[16 + 5])));
-            data.setAssetDepreciation_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[17 + 5])));
-            data.setOperationExpenses_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[18 + 5])));
+            data.setEXPENSES_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[15 + 5])));
+            data.setEmployeeExpenses_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[16 + 5])));
+            data.setAssetDepreciation_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[17 + 5])));
+            data.setOperationExpenses_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[18 + 5])));
 
             //TODO: sebelumnya ga ada juga
-            data.setOPRPROFIT_Target(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[19 + 5])));
-            data.setPROFITPercentOFSALESTarget(RpDoubleFormat.format(100 * Double.parseDouble(TempData[20 + 5])));
+            data.setOPRPROFIT_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[19 + 5])));
+            data.setPROFITPercentOFSALESTarget(RpDoubleFormat.format(100 * parseDouble(TempData[20 + 5])));
 
         } else {
 
-            data.setSPAREPARTS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[5])));
-            data.setSMC_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[1 + 5])));
-            data.setFMS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[2 + 5])));
-            data.setREVENUE_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[3 + 5])));
-            data.setCOSTOFSALES_SPAREPARTS__Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[4 + 5])));
-            data.setCOSTOFSALES_SERVICE__Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[5 + 5])));
-            data.setPeriodicMaintenance_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[6 + 5])));
-            data.setPartRepair_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[7 + 5])));
-            data.setPartRAndI_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[8 + 5])));
-            data.setComponent_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[9 + 5])));
-            data.setGETAndUndercarriageGroup_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[10 + 5])));
-            data.setWarrantyAndCampaign_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[11 + 5])));
-            data.setConsumable_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[12 + 5])));
-            data.setTOTALCOGS_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[13 + 5])));
-            data.setGROSSPROFIT_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[14 + 5])));
-            data.setEXPENSES_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[15 + 5])));
-            data.setEmployeeExpenses_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[16 + 5])));
-            data.setAssetDepreciation_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[17 + 5])));
-            data.setOperationExpenses_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[18 + 5])));
-            data.setOPRPROFIT_Actual(RpDoubleFormat.format(1000 * Double.parseDouble(TempData[19 + 5])));
-            data.setPROFITPercentOFSALESActual(RpDoubleFormat.format(100 * Double.parseDouble(TempData[20 + 5])));
+            data.setSPAREPARTS_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[5])));
+            data.setSMC_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[1 + 5])));
+            data.setFMS_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[2 + 5])));
+            data.setREVENUE_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[3 + 5])));
+            data.setCOSTOFSALES_SPAREPARTS__Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[4 + 5])));
+            data.setCOSTOFSALES_SERVICE__Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[5 + 5])));
+            data.setPeriodicMaintenance_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[6 + 5])));
+            data.setPartRepair_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[7 + 5])));
+            data.setPartRAndI_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[8 + 5])));
+            data.setComponent_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[9 + 5])));
+            data.setGETAndUndercarriageGroup_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[10 + 5])));
+            data.setWarrantyAndCampaign_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[11 + 5])));
+            data.setConsumable_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[12 + 5])));
+            data.setTOTALCOGS_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[13 + 5])));
+            data.setGROSSPROFIT_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[14 + 5])));
+            data.setEXPENSES_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[15 + 5])));
+            data.setEmployeeExpenses_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[16 + 5])));
+            data.setAssetDepreciation_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[17 + 5])));
+            data.setOperationExpenses_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[18 + 5])));
+            data.setOPRPROFIT_Actual(RpDoubleFormat.format(1_000 * parseDouble(TempData[19 + 5])));
+            data.setPROFITPercentOFSALESActual(RpDoubleFormat.format(100 * parseDouble(TempData[20 + 5])));
         }
     }
 
+    /**
+     *
+     * @param level
+     * @return
+     */
     public O_DataDetails DataDetails(String level){
         O_DataDetails data = new O_DataDetails();
 
         return data;
     }
 
+    /**
+     *
+     * @param tahun
+     * @param bulan
+     * @param projectindex
+     * @param project
+     * @return
+     */
     public O_DataTables TableData(int tahun, int bulan, int projectindex, String project){
         O_DataTables tables = new O_DataTables();
         tables.setTahunDataHome(tahun);
@@ -181,6 +216,12 @@ public class F_Function extends F_Koneksi {
         return tables;
     }
 
+    /**
+     *
+     * @param Head
+     * @param Selected
+     * @return
+     */
     public String DataProyek(String Head, String Selected){
         String hasil = "<select name=\"project\" class=\"form-control\">";
         for (String Hasil : SetCombo("SELECT `Project` FROM `DetailRincian` group by `Project`", Head)){
@@ -195,6 +236,12 @@ public class F_Function extends F_Koneksi {
         return hasil;
     }
 
+    /**
+     *
+     * @param Head
+     * @param Selected
+     * @return
+     */
     public String DataProyekInput(String Head,String Selected){
         String hasil = "<select name=\"project\" class=\"form-control\">";
         for (String Hasil : SetCombo("SELECT `Project` FROM `DetailRincian` group by `Project`", Head)){
@@ -211,6 +258,14 @@ public class F_Function extends F_Koneksi {
         return hasil;
     }
 
+    /**
+     *
+     * @param TahunDataHome
+     * @param BulanDataHome
+     * @param ComboProjectHomeItem
+     * @param ComboProjectHomeIndex
+     * @return
+     */
     public String TableMonth(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem,int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -224,6 +279,14 @@ public class F_Function extends F_Koneksi {
         return SetTableDataReview(Query1, Query2);
     }
 
+    /**
+     *
+     * @param TahunDataHome
+     * @param BulanDataHome
+     * @param ComboProjectHomeItem
+     * @param ComboProjectHomeIndex
+     * @return
+     */
     public String TableAVB(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem,int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -237,6 +300,14 @@ public class F_Function extends F_Koneksi {
         return (SetTableDataReview(Query1, Query2));
     }
 
+    /**
+     *
+     * @param TahunDataHome
+     * @param BulanDataHome
+     * @param ComboProjectHomeItem
+     * @param ComboProjectHomeIndex
+     * @return
+     */
     public String TableYTD(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem, int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -250,9 +321,14 @@ public class F_Function extends F_Koneksi {
         return (SetTableDataReview(Query1, Query2));
     }
 
-
-    public String[] TempData;  //index 0 for String key
-
+    /**
+     *
+     * @param Query
+     * @param colCount
+     * @param Static
+     * @param fromDouble
+     * @return
+     */
     public boolean SetTempData(String Query, int colCount, String Static, boolean[] fromDouble) {
         try {
             try (ResultSet rs = Select(Query)) {
@@ -262,7 +338,7 @@ public class F_Function extends F_Koneksi {
                 for (int i = 1; i < colCount; i++) {
                     if (fromDouble != null && fromDouble[i]) {
                         Double nile = rs.getDouble(i);
-                        dokumenList.add(Integer.toString(Math.round(nile.floatValue())));
+                        dokumenList.add(Integer.toString(round(nile.floatValue())));
                     } else {
                         dokumenList.add(rs.getString(i));
                     }
@@ -276,6 +352,11 @@ public class F_Function extends F_Koneksi {
         }
     }
 
+    /**
+     *
+     * @param Query
+     * @return
+     */
     public String[] SetTempData(String Query) {
         String[] cm;
         try {
@@ -284,7 +365,7 @@ public class F_Function extends F_Koneksi {
                 List<String> dokumenList = new ArrayList<>();
                 while (!rs.isAfterLast()) {
                     Double nile = rs.getDouble(1);
-                    dokumenList.add(Integer.toString(Math.round(nile.floatValue())));
+                    dokumenList.add(Integer.toString(round(nile.floatValue())));
                     rs.next();
                 }
                 String[] docArr = new String[dokumenList.size()];
@@ -302,6 +383,13 @@ public class F_Function extends F_Koneksi {
         return cm;
     }
 
+    /**
+     *
+     * @param Query
+     * @param colCount
+     * @param Replacer
+     * @return
+     */
     public boolean InsertData(String Query, int colCount, String Replacer) {
         if (Replacer != null) {
             List<String> dataList = new ArrayList<>();
@@ -314,6 +402,12 @@ public class F_Function extends F_Koneksi {
         return Update(Query);
     }
 
+    /**
+     *
+     * @param Query
+     * @param Header
+     * @return
+     */
     public String[] SetCombo(String Query, String Header) {
         String[] cm;
         try {
@@ -447,6 +541,14 @@ public class F_Function extends F_Koneksi {
         return false;
     }
 */
+
+    /**
+     *
+     * @param Query1
+     * @param Query2
+     * @return
+     */
+
     public String SetTableDataReview(String Query1, String Query2) {
         String data = "";
         int k = 0;
@@ -459,8 +561,8 @@ public class F_Function extends F_Koneksi {
                         List<Integer> dataList = new ArrayList<>();
                         Double target = rs1.getDouble(i);
                         Double actual = rs2.getDouble(i);
-                        dataList.add(Math.round(target.intValue()));
-                        dataList.add(Math.round(actual.intValue()));
+                        dataList.add(round(target.intValue()));
+                        dataList.add(round(actual.intValue()));
                         Double fs;
                         fs = (actual / target) * 100d;
                         if (fs.isNaN()) {
@@ -469,9 +571,9 @@ public class F_Function extends F_Koneksi {
                         if (fs.isInfinite()) {
                             fs = -1d;
                         }
-                        int persen = Math.round(fs.intValue());
+                        int persen = round(fs.intValue());
                         dataList.add(persen);
-                        int hasil[] = ArrayUtils.toPrimitive(dataList.toArray(new Integer[dataList.size()]));
+                        int hasil[] = toPrimitive(dataList.toArray(new Integer[dataList.size()]));
                         String[] a = Arrays.toString(hasil).split("[\\[\\]]")[1].split(", ");
                         DecimalFormat DFor = new java.text.DecimalFormat("#,###;(#,###)");
                         for (int index = 0; index < a.length; index++) {
@@ -484,7 +586,7 @@ public class F_Function extends F_Koneksi {
                                     a[index] += " %";
                                 }
                             } else {
-                                a[index] = DFor.format(Double.parseDouble(a[index]));
+                                a[index] = DFor.format(parseDouble(a[index]));
                             }
                         }
                         data += "<tr>";
@@ -503,15 +605,28 @@ public class F_Function extends F_Koneksi {
         return data;
     }
 
+    /**
+     *
+     * @param project
+     * @return
+     */
     public O_DataLihat LihatData(String project) {
         O_DataLihat data = new O_DataLihat();
         return data;
     }
-    final String[] kolomDB = {"Spare Parts", "SMC", "FMC", "REVENUE", "COST OF SALES (SPARE PARTS)", "COST OF SALES (SERVICE)", "Periodic Maintenance", "Part Repair", "Part R & I", "Component", "GET & Undercarriage Group", "Warranty & Campaign", "Consumable", "TOTAL COGS", "GROSS PROFIT", "EXPENSES", "Employee Expenses", "Asset Depreciation", "Operation Expenses", "OPR. PROFIT", "PROFIT % OF SALES"};
+
+    /**
+     *
+     * @param TabelData
+     * @param project
+     * @param bulan
+     * @param tahun
+     * @param ProfitPercentActual
+     */
     public void UpdateData(String[] TabelData, String project, String bulan, String tahun, Double ProfitPercentActual) {
         String data = "";
         for (int i = 0; i < TabelData.length; i++) {
-            double Value = Double.parseDouble(TabelData[i].toString().replace(".00", "").replaceAll(" ", "").replace("Rp", "").replaceAll(",", ""));
+            double Value = parseDouble(TabelData[i].replace(".00", "").replaceAll(" ", "").replace("Rp", "").replaceAll(",", ""));
             data += "`"+kolomDB[i]+"` = '"+Value/1000d+"', ";
         }
         data += "`"+kolomDB[TabelData.length-1]+"` = '"+ProfitPercentActual/100d+"', ";
@@ -551,4 +666,5 @@ public class F_Function extends F_Koneksi {
         }
     }
   */
+    private static final Logger LOG = Logger.getLogger(F_Function.class.getName());
 }

@@ -1,25 +1,42 @@
 package servlet;
 
+import java.io.IOException;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.IOException;
 
 /**
- * Created by inchidi on 29/10/15.
+ *
+ * @author DimasInchidi
  */
 @WebServlet(
         name = "Login",
         urlPatterns = {"/Login"}    )
 public class Login extends HttpServlet {
 
+
+    F_Privilages Priv = new F_Privilages();
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    F_Privilages Priv = new F_Privilages();
-
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean UserExist = Priv.doLogin(request.getParameter("username"), request.getParameter("password"));
@@ -38,10 +55,10 @@ public class Login extends HttpServlet {
                 response.sendRedirect("dashboard");
             }
         } else {
-            System.out.println("Status: Failed to loging in");
             response.setIntHeader("lgn",0);
             response.sendRedirect("/login");
         }
     }
+    private static final Logger LOG = Logger.getLogger(Login.class.getName());
 
 }
