@@ -264,7 +264,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="/ExportCSAPerformance">Export CSA Performance</a>
+                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="/ExportCSAPerformance?exportToExcel=true">Export CSA Performance</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
