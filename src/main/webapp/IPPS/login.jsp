@@ -45,14 +45,6 @@
                     <div class="panel-body">
                         <form action="/Login" method="post">
                             <fieldset>
-
-                                <div class="form-group">
-                                    <input class="hidden" name="redirect" value="<%if (request.getParameter("redirect")!=null) {
-                                    out.print(request.getParameter("redirect").replaceAll(" ","+"));
-                                    }else{
-                                    out.print("/dashboard");
-                                    }%>">
-                                </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Username" name="username" type="username" autofocus>
                                 </div>
@@ -64,14 +56,19 @@
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
                                 </div>
-                                <%
-                                    if (response.getHeader("login") ==null || !response.getHeader("login").equals("fail")){}
-                                    else{
-                                        %>
-                                anu
-                                <%
-                                    }
-                                %>
+                                <div class="form-group">
+                                    <input class="hidden" name="redirect" value="<%if (request.getParameter("redirect")!=null) {
+                                    out.print(request.getParameter("redirect").replaceAll(" ","+"));
+                                    }else{
+                                    out.print("/dashboard");
+                                    }%>">
+                                </div>
+                                <%if (request.getParameter("login") ==null){}else if(request.getParameter("login").equals("fail")){%>
+                                <div class="alert-danger" align="center">Username atau password salah
+                                </div>
+                                <%} else if (request.getParameter("login").equals("bf")){
+                                    out.print("percobaan login melebihi batas, anda tidak dapat login untuk beberapa saat\nsilahkan hubungi administrator untuk bantuan.");
+                                }%>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
                             </fieldset>

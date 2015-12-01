@@ -19,28 +19,31 @@ public class Login extends HttpServlet {
     }
 
     F_Privilages Priv = new F_Privilages();
-
+    int atemp = 0;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean UserExist = Priv.doLogin(request.getParameter("username"), request.getParameter("password"));
-        if (UserExist) {
-            O_User User = Priv.UserData();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", User.getUsername());
-            session.setAttribute("nama", User.getNama());
-            session.setAttribute("level", User.getLevel());
-            session.setAttribute("lastlogin", User.getLastLogin());
-
-            if (request.getParameter("redirect")!=null){
-                String redirect = request.getParameter("redirect");
-                response.sendRedirect(redirect);
-            }else {
-                response.sendRedirect("dashboard");
-            }
+        if (atemp>=10){
+            response.sendRedirect("/login?login=bf");
         } else {
-            System.out.println("Status: Failed to loging in");
-            response.setIntHeader("lgn",0);
-            response.sendRedirect("/login");
+            if (UserExist) {
+                O_User User = Priv.UserData();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("user", User.getUsername());
+                session.setAttribute("nama", User.getNama());
+                session.setAttribute("level", User.getLevel());
+                session.setAttribute("lastlogin", User.getLastLogin());
+
+                if (request.getParameter("redirect") != null) {
+                    String redirect = request.getParameter("redirect");
+                    response.sendRedirect(redirect);
+                } else {
+                    response.sendRedirect("dashboard");
+                }
+            } else {
+                atemp++;
+                response.sendRedirect("/login?login=fail");
+            }
         }
     }
 
