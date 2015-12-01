@@ -59,6 +59,16 @@
         <servlet-name>lihat data page</servlet-name>
         <url-pattern>/lihat+data</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description>Export Dashboard</description>
+        <servlet-name>export dashboard page</servlet-name>
+        <jsp-file>/IPPS/dashboardexport.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>export dashboard page</servlet-name>
+        <url-pattern>/ExportCSAPerformance</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <description>View pesan</description>

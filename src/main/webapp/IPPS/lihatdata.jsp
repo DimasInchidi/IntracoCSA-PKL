@@ -8,22 +8,20 @@
 
 <head>
     <%
+        if(session.getAttribute("user")==null || session.getAttribute("user").toString().trim().equals("")) {response.sendRedirect("/login");}
         F_TimeManagement FT = new F_TimeManagement();
         F_Function FF = new F_Function();
-
         Calendar cal = Calendar.getInstance();
-        if(session.getAttribute("user")==null || session.getAttribute("user").toString().trim().equals("")) {response.sendRedirect("/login");}
-
         String project;
-if (session.getAttribute("level") == null || session.getAttribute("level").toString().contains("Admin")){
-    if (request.getParameter("project") == null) {
-        project = "All";
-    }else{
-        project = request.getParameter("project");
-    }
-}else{
-    project = session.getAttribute("level").toString();
-}
+        if (session.getAttribute("level") == null || session.getAttribute("level").toString().contains("Admin")){
+            if (request.getParameter("project") == null) {
+                project = "All";
+            }else{
+                project = request.getParameter("project");
+            }
+        }else{
+            project = session.getAttribute("level").toString();
+        }
         O_DataLihat Data = FF.LihatData(project);
 
     %>
@@ -209,6 +207,38 @@ if (session.getAttribute("level") == null || session.getAttribute("level").toStr
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            CSA Achievement This Month
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="flot-chart">
+                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            CSA Achievement YTD
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="flot-chart">
+                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
                 <% for (int i=0;i<3;i++){%>
                 <div class="col-lg-6">
                     <div class="panel panel-default">
@@ -218,7 +248,7 @@ if (session.getAttribute("level") == null || session.getAttribute("level").toStr
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-pie-chart"></div>
+                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
                             </div>
                         </div>
                         <!-- /.panel-body -->

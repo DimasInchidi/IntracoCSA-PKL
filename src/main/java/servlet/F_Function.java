@@ -68,8 +68,8 @@ public class F_Function extends F_Koneksi {
         data.setDataProyek(DataProyekInput("TOTAL CSA GOLD", project));
 
         if (!tsk.equals("calculate")){
-            ReloadTextData(project,bulan,tahun,"actual", data);
-            ReloadTextData(project,bulan,tahun,"target", data);
+            ReloadTextData(project,bulan,tahun,"Actual", data);
+            ReloadTextData(project,bulan,tahun,"Target", data);
         } else {
             //actual data
             data.setSPAREPARTS_Actual(RpDoubleFormat.format(1_000 * parseDouble(datainputActual[0])));
@@ -121,12 +121,12 @@ public class F_Function extends F_Koneksi {
     }
 
     private void ReloadTextData(String project, int bulan, int tahun, String tipe, O_DataInput data) {
-        if (!SetTempData("SELECT * FROM `IntracoCSA`.`DetailRincian` WHERE `Project`= '" + project + "' AND `Bulan`='" + bulan + "' AND `Tahun`='" + tahun + "' AND `Tipe`='" + tipe + "'",
+        if (!SetTempData("SELECT * FROM `DetailRincian` WHERE `Project`= '" + project + "' AND `Bulan`='" + bulan + "' AND `Tahun`='" + tahun + "' AND `Tipe`='" + tipe + "'",
                 26, null, null)) {
-            InsertData("INSERT INTO `IntracoCSA`.`DetailRincian` (`Project`, `Bulan`, `Tahun`, `Tipe`) VALUES ('" + project + "', '" + bulan + "', '" + tahun + "', '" + tipe + "')",
+            InsertData("INSERT INTO `DetailRincian` (`Project`, `Bulan`, `Tahun`, `Tipe`) VALUES ('" + project + "', '" + bulan + "', '" + tahun + "', '" + tipe + "')",
                     26, "0");
         }
-        if (tipe.equals("target")) {
+        if (tipe.equals("Target")) {
 
             //revenue
             data.setSPAREPARTS_Target(RpDoubleFormat.format(1_000 * parseDouble(TempData[5])));
@@ -332,7 +332,7 @@ public class F_Function extends F_Koneksi {
     public boolean SetTempData(String Query, int colCount, String Static, boolean[] fromDouble) {
         try {
             try (ResultSet rs = Select(Query)) {
-                rs.first();
+                rs.next();
                 List<String> dokumenList = new ArrayList<>();
                 dokumenList.add(Static);
                 for (int i = 1; i < colCount; i++) {
@@ -342,12 +342,14 @@ public class F_Function extends F_Koneksi {
                     } else {
                         dokumenList.add(rs.getString(i));
                     }
+                    rs.next();
                 }
                 TempData = new String[dokumenList.size()];
                 TempData = dokumenList.toArray(TempData);
             }
             return true;
         } catch (SQLException | java.lang.NullPointerException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -361,7 +363,7 @@ public class F_Function extends F_Koneksi {
         String[] cm;
         try {
             try (ResultSet rs = Select(Query)) {
-                rs.first();
+                rs.next();
                 List<String> dokumenList = new ArrayList<>();
                 while (!rs.isAfterLast()) {
                     Double nile = rs.getDouble(1);
@@ -412,7 +414,7 @@ public class F_Function extends F_Koneksi {
         String[] cm;
         try {
             try (ResultSet rs = Select(Query)) {
-                rs.first();
+                rs.next();
                 List<String> dokumenList = new ArrayList<>();
                 if (Header != null) {
                     dokumenList.add(Header);
@@ -481,7 +483,7 @@ public class F_Function extends F_Koneksi {
         };
         try {
             try (ResultSet rs = Select(Query)) {
-                rs.first();
+                rs.next();
                 int dataSumList = 0;
                 while (!rs.isAfterLast()) {
                     List<String> dataList = new ArrayList<>();
@@ -555,8 +557,8 @@ public class F_Function extends F_Koneksi {
         try {
             try (ResultSet rs1 = Select(Query1)) {
                 try (ResultSet rs2 = Select(Query2)) {
-                    rs1.first();
-                    rs2.first();
+                    rs1.next();
+                    rs2.next();
                     for (int i = 1; i < 11; i++) {
                         List<Integer> dataList = new ArrayList<>();
                         Double target = rs1.getDouble(i);
@@ -600,6 +602,7 @@ public class F_Function extends F_Koneksi {
                 }
             }
         } catch (SQLException | java.lang.NullPointerException ex) {
+            ex.printStackTrace();
             data += "<tr><td>"+null +"</td></tr>";
         }
         return data;
@@ -625,14 +628,14 @@ public class F_Function extends F_Koneksi {
      */
     public void UpdateData(String[] TabelData, String project, String bulan, String tahun, Double ProfitPercentActual) {
         String data = "";
-        for (int i = 0; i < TabelData.length; i++) {
+        for (int i = 0; i < TabelData.length-1; i++) {
             double Value = parseDouble(TabelData[i].replace(".00", "").replaceAll(" ", "").replace("Rp", "").replaceAll(",", ""));
             data += "`"+kolomDB[i]+"` = '"+Value/1000d+"', ";
         }
         data += "`"+kolomDB[TabelData.length-1]+"` = '"+ProfitPercentActual/100d+"', ";
         data = data.substring(0, data.length()-2);
         String con =" `DetailRincian`.`Project` = '"+project+"' AND `DetailRincian`.`Bulan` = "+bulan+" AND `DetailRincian`.`Tahun` = "+tahun+" AND `DetailRincian`.`Tipe` = 'Actual';";
-        Update(data,"`IntracoCSA`.`DetailRincian`", con);
+        Update(data,"`DetailRincian`", con);
     }
 /*
     public int[] PrepareExportData(String Query1, String Query2) {
@@ -640,8 +643,8 @@ public class F_Function extends F_Koneksi {
         try {
             try (ResultSet rs1 = Select(Query1)) {
                 try (ResultSet rs2 = Select(Query2)) {
-                    rs1.first();
-                    rs2.first();
+                    rs1.next();
+                    rs2.next();
                     List<Integer> dataList = new ArrayList<>();
                     Double target = rs1.getDouble(1);
                     Double actual = rs2.getDouble(1);

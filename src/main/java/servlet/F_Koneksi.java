@@ -97,6 +97,7 @@ public class F_Koneksi {
         try {
             String sql = "UPDATE " + table + " SET " + data + " WHERE " + condition;
             sql = sql.replaceAll("`", "\"");
+            System.out.println(sql);
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             return true;
@@ -113,10 +114,12 @@ public class F_Koneksi {
     public boolean Update(String Query) {
         try {
             Query = Query.replaceAll("`", "\"");
+            System.out.println(Query);
             stmt = con.createStatement();
             stmt.executeUpdate(Query);
             return true;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
