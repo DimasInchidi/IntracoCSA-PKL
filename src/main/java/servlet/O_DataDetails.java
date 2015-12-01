@@ -10,6 +10,24 @@ public class O_DataDetails {
 
     private static final Logger LOG = getLogger(O_DataDetails.class.getName());
 
+    private String[][] dataTarget, dataActual;
+
+    public String[][] getDataTarget() {
+        return dataTarget;
+    }
+
+    public void setDataTarget(String[][] dataTarget) {
+        this.dataTarget = dataTarget;
+    }
+
+    public String[][] getDataActual() {
+        return dataActual;
+    }
+
+    public void setDataActual(String[][] dataActual) {
+        this.dataActual = dataActual;
+    }
+
     public O_DataDetails() {
     }
 

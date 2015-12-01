@@ -27,6 +27,7 @@
               + "Details "+tglnye+".xls");
     }
     O_DataDetails Data = FF.DataDetails(session.getAttribute("level").toString());
+    String[][] datanye = Data.getDataActual();
     //<td style="text-align:left;width:2.3236in; " ></td>
     String[] Desc = {"<td colspan=\"3\" style=\"text-align:left;width:2.3236in; \" class=\"ce8\">SERVICE (LABOUR)/SMC</td>",
             "<td colspan=\"3\" style=\"text-align:left;width:2.3236in; \" class=\"ce8\">FULL MAINTENANCE CONTRACT/FMS</td>",
@@ -202,7 +203,7 @@
 
     <%
       for(String hasil:Bulan) {%>
-    <td colspan="2" align="center" style="text-align:right; width:1.0874in; "bgcolor="#ffc000" ><p><%=hasil%></p></td>
+    <td colspan="2" align="center" bgcolor="#ffc000"><p><%=hasil%></p></td>
     <%
       }
     %>
@@ -229,15 +230,15 @@
   <tr class="ro1">
     <%=PJ%>
     <td colspan="3" style="text-align:left;width:2.3236in; " ><p>SPARE PARTS</p></td>
-    <td style="text-align:right; width:1.1882in; " ><p>Project Target</p></td>
-    <td style="text-align:right; width:1.3772in; " ><p>Project Actual</p></td>
-    <td style="text-align:right; width:0.5701in; " ><p>Project % Total</p></td>
-    <td style="text-align:left;width:0.2425in; "bgcolor="#d9d9d9" > </td>
+    <td style="text-align:right; width:1.1882in; " ><p><%=datanye[1][2]%></p></td>
+    <td style="text-align:right; width:1.3772in; " ><p><%=datanye[0][3]%></p></td>
+    <td style="text-align:right; width:0.5701in; " ><p><%=datanye[0][0]%></p></td>
+    <td style="text-align:right;width:0.2425in; "bgcolor="#d9d9d9" > </td>
     <%
       for(int jeda=0; jeda<12; jeda++ ){
     %>
-    <td style="text-align:left;width:1.0874in; " ><p>Project Target</p></td>
-    <td style="text-align:left;width:1.0874in; " ><p>Project Actual</p></td>
+    <td style="text-align:right;width:1.0874in; " ><p><%=datanye[0][0]%></p></td>
+    <td style="text-align:right;width:1.0874in; " ><p><%=datanye[(jeda*2)+1][(jeda)+1]%></p></td>
     <%
       }
     %>
@@ -249,15 +250,15 @@
 
   <tr class="ro1" >
     <%=hasil%>
-    <td style = "text-align:right; width:1.1882in; "  ><p > Project Target </p ></td >
-    <td style = "text-align:right; width:1.3772in; "  ><p > Project Actual </p ></td >
-    <td style = "text-align:right; width:0.5701in; "  ><p > Project % Total</p ></td >
+    <td style = "text-align:right; width:1.1882in; "  ><p ><%=datanye[0][0]%></p ></td >
+    <td style = "text-align:right; width:1.3772in; "  ><p ><%=datanye[1][1]%></p ></td >
+    <td style = "text-align:right; width:0.5701in; "  ><p ><%=datanye[1][1]%></p ></td >
     <td style = "text-align:left;width:0.2425in; "bgcolor="#d9d9d9"  > </td >
     <%
       for(int nilai=0; nilai<12; nilai++ ){
     %>
-    <td style = "text-align:right; width:1.0874in; "  ><p > Project Target</p ></td >
-    <td style = "text-align:right; width:1.0874in; "  ><p > Project Actual </p ></td >
+    <td style = "text-align:right; width:1.0874in; "  ><p ><%=datanye[1][1]%></p ></td >
+    <td style = "text-align:right; width:1.0874in; "  ><p ><%=datanye[1][1]%> </p ></td >
     <%
       }
     %>
