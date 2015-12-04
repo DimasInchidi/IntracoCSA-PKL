@@ -14,17 +14,17 @@ public class F_Koneksi {
 
 
     private static final String JDBC_DRIVER;
-    private static final String DB_URL;
+    private static final String DATABASE_URL;
     private static final String USER;
     private static final String PASS;
     static {
         JDBC_DRIVER = "org.postgresql.Driver";
-        DB_URL = "jdbc:postgresql://ec2-54-197-241-239.compute-1.amazonaws.com:5432/d4cf9qjii3n278";
+        DATABASE_URL = "";
         USER = "ugdkklluzjnfyd";
         PASS = "6DQq3XxGJaxd8PrTY9ec-xfeki";
-//        JDBC_DRIVER = "com.mysql.jdbc.Driver";
-//        DB_URL = "jdbc:mysql://localhost/IntracoCSA";
-//        USER = "root";
+//        JDBC_DRIVER = "org.postgresql.Driver";
+//        DATABASE_URL = "jdbc:postgresql://localhost:5432/IntracoDB";
+//        USER = "Intraco";
 //        PASS = "r00t";
     }
     private final Connection con;
@@ -40,14 +40,14 @@ public class F_Koneksi {
             Properties props = new Properties();
             props.setProperty("user", USER);
             props.setProperty("password",PASS);
-            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
-            props.setProperty("ssl", "true");
+//            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+//            props.setProperty("ssl", "true");
             forName(JDBC_DRIVER);
-            connect = getConnection(DB_URL, props);
+            connect = getConnection(DATABASE_URL, props);
         } catch (SQLException|ClassNotFoundException se) {
             connect = null;
-            //goto error page
-                    }
+            //TODO: goto error page
+        }
         con = connect;
     }
 
@@ -124,6 +124,17 @@ public class F_Koneksi {
         }
     }
 
+
+    public boolean Insert(String sql) {
+        try {
+            sql = sql.replaceAll("`", "\"");
+            stmt = con.createStatement();
+            stmt.executeQuery(sql);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
     /**
      *
      * @param table
@@ -168,5 +179,4 @@ public class F_Koneksi {
     public String CleanInput (String input){
         return input.replaceAll("'","''");
     }
-    private static final Logger LOG = Logger.getLogger(F_Koneksi.class.getName());
 }

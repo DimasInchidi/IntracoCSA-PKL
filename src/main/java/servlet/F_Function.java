@@ -561,7 +561,7 @@ public class F_Function extends F_Koneksi {
             TempData = new String[dataList.size()];
             TempData = dataList.toArray(TempData);
         }
-        return Update(Query);
+        return Insert(Query);
     }
 
     /**
