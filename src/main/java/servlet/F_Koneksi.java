@@ -40,8 +40,8 @@ public class F_Koneksi {
             Properties props = new Properties();
             props.setProperty("user", USER);
             props.setProperty("password",PASS);
-//            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
-//            props.setProperty("ssl", "true");
+            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+            props.setProperty("ssl", "true");
             forName(JDBC_DRIVER);
             connect = getConnection(DATABASE_URL, props);
         } catch (SQLException|ClassNotFoundException se) {
