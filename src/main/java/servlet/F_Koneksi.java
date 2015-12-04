@@ -61,6 +61,7 @@ public class F_Koneksi {
     public ResultSet Select(String data, String table, String condition) {
         String sql = "SELECT " + data + " FROM " + table + " " + condition;
         sql = sql.replaceAll("`", "\"");
+        System.out.println(DATABASE_URL);
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
