@@ -19,7 +19,7 @@ public class F_Koneksi {
     private static final String PASS;
     static {
         JDBC_DRIVER = "org.postgresql.Driver";
-        DATABASE_URL = System.getenv("DATABASE_URL");
+        DATABASE_URL = System.getenv("DB_URL");
         USER = "ugdkklluzjnfyd";
         PASS = "6DQq3XxGJaxd8PrTY9ec-xfeki";
 //        JDBC_DRIVER = "org.postgresql.Driver";
