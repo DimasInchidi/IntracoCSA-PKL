@@ -248,10 +248,15 @@
         <td style="text-align:right;width:0.2425in; "bgcolor="#d9d9d9" > </td>
         <%
             for(int jeda=0; jeda<12; jeda++ ){
+        if (project==5){
         %>
-        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[project][jeda])%></p></td>
-        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[project][jeda])%></p></td>
+        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[project*12][0])%></p></td>
+        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[project*12][0])%></p></td>
         <%
+            }else{%>
+        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[(1*12)+jeda][0])%></p></td>
+        <td style="text-align:right;width:1.0874in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[(1*12)+jeda][0])%></p></td>
+            <%}
             }
         %>
     </tr>
@@ -267,11 +272,16 @@
         <td style = "text-align:right; width:0.5701in; "  ><p ><%="Persen"%></p ></td >
         <td style = "text-align:left;width:0.2425in; "bgcolor="#d9d9d9"  > </td >
         <%
-            for(int nilai=0; nilai<12; nilai++ ){
+            for(int nilai=1; nilai<13; nilai++ ){
+                if (project==5){
         %>
-        <td style = "text-align:right; width:1.0874in; "  ><p ><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[project][nilai])%></p ></td >
-        <td style = "text-align:right; width:1.0874in; "  ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[project][nilai])%></p ></td >
+        <td style = "text-align:right; width:1.0874in; "  ><p ><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[(project*12)+nilai][desc])%></p ></td >
+        <td style = "text-align:right; width:1.0874in; "  ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[(project*12)+nilai][desc])%></p ></td >
         <%
+                }else{%>
+        <td style = "text-align:right; width:1.0874in; "  ><p ><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[1][desc])%></p ></td >
+        <td style = "text-align:right; width:1.0874in; "  ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[1][desc])%></p ></td >
+        <%}
             }
         %>
     </tr >
