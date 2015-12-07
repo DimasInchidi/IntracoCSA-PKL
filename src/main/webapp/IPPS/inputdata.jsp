@@ -9,7 +9,7 @@
 <head>
     <%
         String direct = request.getRequestURI();
-        if(session.getAttribute("user")==null || session.getAttribute("user").toString().trim().equals("")) {
+        if(session.getAttribute("user")==null || session.getAttribute("level")==null || session.getAttribute("user").toString().trim().equals("")) {
             response.sendRedirect("/login?redirect="+direct);
         }
         Calendar cal = Calendar.getInstance();

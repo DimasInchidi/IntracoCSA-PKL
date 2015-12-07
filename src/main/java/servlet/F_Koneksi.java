@@ -21,12 +21,12 @@ public class F_Koneksi {
     private static final String PASS;
     static {
         JDBC_DRIVER = "org.postgresql.Driver";
-//        DATABASE_URL = System.getenv("DB_URL");
-//        USER = "ugdkklluzjnfyd";
-//        PASS = "6DQq3XxGJaxd8PrTY9ec-xfeki";
-        DATABASE_URL = "jdbc:postgresql://localhost:5432/IntracoDB";
-        USER = "Intraco";
-        PASS = "r00t";
+        DATABASE_URL = System.getenv("DB_URL");
+        USER = "ugdkklluzjnfyd";
+        PASS = "6DQq3XxGJaxd8PrTY9ec-xfeki";
+//        DATABASE_URL = "jdbc:postgresql://localhost:5432/IntracoDB";
+//        USER = "Intraco";
+//        PASS = "r00t";
     }
     private Connection con;
     private Statement stmt;
@@ -41,8 +41,8 @@ public class F_Koneksi {
             Properties props = new Properties();
             props.setProperty("user", USER);
             props.setProperty("password",PASS);
-//            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
-//            props.setProperty("ssl", "true");
+            props.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+            props.setProperty("ssl", "true");
             forName(JDBC_DRIVER);
             connect = getConnection(DATABASE_URL, props);
         } catch (SQLException|ClassNotFoundException se) {
@@ -68,12 +68,11 @@ public class F_Koneksi {
                 }
                 Object[] colArr = new Object[colList.size()];
                 colArr= colList.toArray(colArr);
-                System.out.println(Arrays.toString(colArr));
                 rowList.add(colArr);
             }
             hasil = new Object[rowList.size()][colList.size()];
             hasil = rowList.toArray(hasil);
-            System.out.println(Arrays.deepToString(hasil));
+            System.out.println(hasil);
         } catch (SQLException|NullPointerException ex) {
             ex.printStackTrace();
             hasil = null;
@@ -132,7 +131,6 @@ public class F_Koneksi {
             con = Koneksi();
             query = query.replaceAll("`", "\"");
             stmt = con.createStatement();
-            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             List<Double[]> rowList = new ArrayList<>();
             List<Double> colList = new ArrayList<>();
@@ -142,12 +140,11 @@ public class F_Koneksi {
                 }
                 Double[] colArr = new Double[colList.size()];
                 colArr= colList.toArray(colArr);
-                System.out.println(Arrays.toString(colArr));
                 rowList.add(colArr);
             }
             hasil = new Double[rowList.size()][colList.size()];
             hasil = rowList.toArray(hasil);
-            System.out.println(Arrays.deepToString(hasil));
+            System.out.println(Arrays.deepToString(hasil).replaceAll("],","\n"));
         } catch (SQLException ex) {
             ex.printStackTrace();
             hasil = null;

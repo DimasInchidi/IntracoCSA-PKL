@@ -1,34 +1,49 @@
 package servlet;
 
-import java.util.logging.Logger;
-import static java.util.logging.Logger.getLogger;
-
-/**
- * Created by inchidi on 27/11/15.
- */
 public class O_DataDetails {
 
-    private static final Logger LOG = getLogger(O_DataDetails.class.getName());
+    private Double[][] dataTarget, dataActual,dataPercent, dataTotal;
+    private String[] dataProject;
 
-    private String[][] dataTarget, dataActual;
+    public Double[][] getDataTotal() {
+        return dataTotal;
+    }
 
-    public String[][] getDataTarget() {
+    public void setDataTotal(Double[][] dataTotal) {
+        this.dataTotal = dataTotal;
+    }
+
+    public String[] getDataProject() {
+        return dataProject;
+    }
+
+    public void setDataProject(String[] dataProject) {
+        this.dataProject = dataProject;
+    }
+
+    public Double[][] getDataPercent() {
+
+        return dataPercent;
+    }
+
+    public void setDataPercent(Double[][] dataPercent) {
+        this.dataPercent = dataPercent;
+    }
+
+    public Double[][] getDataTarget() {
         return dataTarget;
     }
 
-    public void setDataTarget(String[][] dataTarget) {
+    public void setDataTarget(Double[][] dataTarget) {
         this.dataTarget = dataTarget;
     }
 
-    public String[][] getDataActual() {
+    public Double[][] getDataActual() {
         return dataActual;
     }
 
-    public void setDataActual(String[][] dataActual) {
+    public void setDataActual(Double[][] dataActual) {
         this.dataActual = dataActual;
-    }
-
-    public O_DataDetails() {
     }
 
 }
