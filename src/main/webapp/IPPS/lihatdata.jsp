@@ -22,7 +22,7 @@
         }else{
             project = session.getAttribute("level").toString();
         }
-        O_DataLihat Data = FF.LihatData(project);
+        O_DataLihat Data = FF.LihatData();
 
     %>
     <meta charset="utf-8">
@@ -215,7 +215,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="flot-chart">
-                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
+                                <img src="/report/CSA%20Achivement" style="width: 470px; height: 358px" alt=""/></td>
                             </div>
                         </div>
                         <!-- /.panel-body -->
@@ -231,7 +231,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="flot-chart">
-                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
+                                <img src="/report/CSA%20Achivement%20YTD" style="width: 470px; height: 358px" alt=""/></td>
                             </div>
                         </div>
                         <!-- /.panel-body -->
@@ -239,16 +239,16 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-6 -->
-                <% for (int i=0;i<3;i++){%>
+                <% for (String Project : Data.getDataProject()){%>
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <%="ProjectName "+i%>
+                            <%=Project%>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="flot-chart">
-                                <img src="report122929157175106646.html_files/img_0_0_3_0" style="width: 300px; height: 220px" alt=""/></td>
+                                <img src="/report/<%=Project.toUpperCase()%>" style="width: 470px; height: 358px" alt=""/></td>
                             </div>
                         </div>
                         <!-- /.panel-body -->
@@ -264,7 +264,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="/ExportCSAPerformance?exportToExcel=true">Export CSA Performance</a>
+                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="../report/CSA%20Dashboard_Desember%202015.pdf">Export CSA Performance</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>

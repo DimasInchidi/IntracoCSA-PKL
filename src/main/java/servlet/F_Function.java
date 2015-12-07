@@ -524,8 +524,12 @@ public class F_Function extends F_Koneksi {
         return data;
     }
 
-    public O_DataLihat LihatData(String project) {
+    public O_DataLihat LihatData() {
         O_DataLihat data = new O_DataLihat();
+        String Query = "SELECT \"Project\" FROM \"DetailRincian\" WHERE \"Tahun\" = '2015' AND \"Tipe\"='Actual' GROUP BY \"Project\" ORDER BY \"Project\" ASC;\n";
+        Object[] Project = Select(Query);
+        String[] stringArray = Arrays.copyOf(Project, Project.length, String[].class);
+        data.setDataProject(stringArray);
         return data;
     }
 

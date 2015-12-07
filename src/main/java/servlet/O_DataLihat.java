@@ -8,8 +8,13 @@ import static java.util.logging.Logger.getLogger;
  */
 public class O_DataLihat {
 
-    private static final Logger LOG = getLogger(O_DataLihat.class.getName());
+    private String[] dataProject;
 
-    public O_DataLihat() {
+    public String[] getDataProject() {
+        return dataProject;
+    }
+
+    public void setDataProject(String[] dataProject) {
+        this.dataProject = dataProject;
     }
 }

@@ -244,7 +244,7 @@
         <td colspan="3" style="text-align:left;width:2.3236in; " ><p>SPARE PARTS</p></td>
         <td style="text-align:right; width:1.1882in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[project][0])%></p></td>
         <td style="text-align:right; width:1.3772in; " ><p><%=RpDoubleFormat.format(1_000 * Data.getDataActual()[project][0])%></p></td>
-        <td style="text-align:right; width:0.5701in; " ><p><%="%"%></p></td>
+        <td style="text-align:right; width:0.5701in; " ><p><%=(Data.getDataTarget()[project][project]/100) + "%"%></p></td>
         <td style="text-align:right;width:0.2425in; "bgcolor="#d9d9d9" > </td>
         <%
             for(int jeda=0; jeda<12; jeda++ ){
@@ -267,9 +267,9 @@
 
     <tr class="ro1" >
         <%=Desc[desc-1]%>
-        <td style = "text-align:right; width:1.1882in; "  ><p ><%=RpDoubleFormat.format(1_000 * 1)%></p ></td >
-        <td style = "text-align:right; width:1.3772in; "  ><p><%=RpDoubleFormat.format(1_000 * 1)%></p ></td >
-        <td style = "text-align:right; width:0.5701in; "  ><p ><%="Persen"%></p ></td >
+        <td style = "text-align:right; width:1.1882in; "  ><p ><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[(project*12)][project])%></p ></td >
+        <td style = "text-align:right; width:1.3772in; "  ><p><%=RpDoubleFormat.format(1_000 * Data.getDataTarget()[(project*12)][project])%></p ></td >
+        <td style = "text-align:right; width:0.5701in; "  ><p ><%=(Data.getDataTarget()[(project*12)][project]/100)+" %"%></p ></td >
         <td style = "text-align:left;width:0.2425in; "bgcolor="#d9d9d9"  > </td >
         <%
             for(int nilai=1; nilai<13; nilai++ ){
