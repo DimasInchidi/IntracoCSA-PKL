@@ -8,13 +8,13 @@
 
 <head>
     <%
-        F_TimeManagement FT = new F_TimeManagement();
-        F_Function FF = new F_Function();
         String direct = request.getRequestURI();
-        Calendar cal = Calendar.getInstance();
         if(session.getAttribute("user")==null || session.getAttribute("user").toString().trim().equals("")) {
             response.sendRedirect("/login?redirect="+direct);
         }
+        Calendar cal = Calendar.getInstance();
+        F_TimeManagement FT = new F_TimeManagement();
+        F_Function FF = new F_Function();
 
         int tahun,bulan;
         String project;
@@ -479,7 +479,11 @@
                                         <div class="col-lg-12">
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
-                                                    <form role="form" action="/input+data" method="post">
+                                                    <form role="form" action="/InputData" method="post">
+                                                        <input class="hidden" value="<%=project%>" name="project">
+                                                        <input class="hidden" value="<%=bulan%>" name="bulan">
+                                                        <input class="hidden" value="<%=tahun%>" name="tahun">
+                                                        <input class="hidden" value="target" name="tipe">
                                                         <div class="panel-group" id="accordionTarget">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-heading">
@@ -680,8 +684,8 @@
                                                         </div>
 
                                                         <div class="panel" align="center">
-                                                            <button type="sum" class="btn btn-default" value="calculate">Calculate</button>
-                                                            <button type="submit" class="btn btn-default" value="submit">Submit Button</button>
+                                                            <button type="submit" class="btn btn-default" name="action" value="calculate">Calculate</button>
+                                                            <button type="submit" class="btn btn-default" name="action" value="submit">Submit Button</button>
                                                             <button type="reset" class="btn btn-default">Reset Button</button>
                                                         </div>
 

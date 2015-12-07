@@ -9,13 +9,11 @@ package servlet;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Math.round;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 import static org.apache.commons.lang3.ArrayUtils.toPrimitive;
 
 /**
@@ -48,16 +46,6 @@ public class F_Function extends F_Koneksi {
     public String[] TempData; //index 0 for String key
     final String[] kolomDB = {"Spare Parts", "SMC", "FMC", "REVENUE", "COST OF SALES (SPARE PARTS)", "COST OF SALES (SERVICE)", "Periodic Maintenance", "Part Repair", "Part R & I", "Component", "GET & Undercarriage Group", "Warranty & Campaign", "Consumable", "TOTAL COGS", "GROSS PROFIT", "EXPENSES", "Employee Expenses", "Asset Depreciation", "Operation Expenses", "OPR. PROFIT", "PROFIT % OF SALES"};
 
-    /**
-     *
-     * @param tsk
-     * @param tahun
-     * @param bulan
-     * @param project
-     * @param dtiA
-     * @param dtiT
-     * @return
-     */
     public O_DataInput InputData(String tsk, int tahun, int bulan, String project, Object dtiA, Object dtiT){
         O_DataInput data = new O_DataInput();
         String[] datainputActual = (String[]) dtiA;
@@ -122,7 +110,7 @@ public class F_Function extends F_Koneksi {
 
     private void ReloadTextData(String project, int bulan, int tahun, String tipe, O_DataInput data) {
         if (!SetTempData("SELECT * FROM `DetailRincian` WHERE `Project`= '" + project + "' AND `Bulan`='" + bulan + "' AND `Tahun`='" + tahun + "' AND `Tipe`='" + tipe + "'",
-                26, null, null)) {
+                25, null, new boolean[]{false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, })) {
             InsertData("INSERT INTO `DetailRincian` (`Project`, `Bulan`, `Tahun`, `Tipe`) VALUES ('" + project + "', '" + bulan + "', '" + tahun + "', '" + tipe + "')",
                     26, "0");
         }
@@ -344,25 +332,15 @@ public class F_Function extends F_Koneksi {
         {String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d)},
         {String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d),String.valueOf(0d)}
     };
-    /**
-     *
-     * @param level
-     * @return
-     */
+
+
     public O_DataDetails DataDetails(String level){
         O_DataDetails data = new O_DataDetails();
         data.setDataActual(dataTargetTemp);
         return data;
     }
 
-    /**
-     *
-     * @param tahun
-     * @param bulan
-     * @param projectindex
-     * @param project
-     * @return
-     */
+
     public O_DataTables TableData(int tahun, int bulan, int projectindex, String project){
         O_DataTables tables = new O_DataTables();
         tables.setTahunDataHome(tahun);
@@ -376,32 +354,24 @@ public class F_Function extends F_Koneksi {
         return tables;
     }
 
-    /**
-     *
-     * @param Head
-     * @param Selected
-     * @return
-     */
     public String DataProyek(String Head, String Selected){
         String hasil = "<select name=\"project\" class=\"form-control\">";
-        for (String Hasil : SetCombo("SELECT `Project` FROM `DetailRincian` group by `Project`", Head)){
-            if (Hasil.equals(Selected)){
-                hasil += "<option selected name=\"" + Hasil + "\">" + Hasil + "</option>";
-            }else {
-                hasil += "<option name=\"" + Hasil + "\">" + Hasil + "</option>";
+        try {
+            for (String Hasil : SetCombo("SELECT `Project` FROM `DetailRincian` group by `Project`", Head)) {
+                if (Hasil.equals(Selected)) {
+                    hasil += "<option selected name=\"" + Hasil + "\">" + Hasil + "</option>";
+                } else {
+                    hasil += "<option name=\"" + Hasil + "\">" + Hasil + "</option>";
+                }
             }
+        }catch (NullPointerException e){
+            hasil += "<option name=\"Kosong\">Kosong</option>";
         }
 
         hasil+= "</select>";
         return hasil;
     }
 
-    /**
-     *
-     * @param Head
-     * @param Selected
-     * @return
-     */
     public String DataProyekInput(String Head,String Selected){
         String hasil = "<select name=\"project\" class=\"form-control\">";
         for (String Hasil : SetCombo("SELECT `Project` FROM `DetailRincian` group by `Project`", Head)){
@@ -418,14 +388,6 @@ public class F_Function extends F_Koneksi {
         return hasil;
     }
 
-    /**
-     *
-     * @param TahunDataHome
-     * @param BulanDataHome
-     * @param ComboProjectHomeItem
-     * @param ComboProjectHomeIndex
-     * @return
-     */
     public String TableMonth(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem,int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -439,14 +401,6 @@ public class F_Function extends F_Koneksi {
         return SetTableDataReview(Query1, Query2);
     }
 
-    /**
-     *
-     * @param TahunDataHome
-     * @param BulanDataHome
-     * @param ComboProjectHomeItem
-     * @param ComboProjectHomeIndex
-     * @return
-     */
     public String TableAVB(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem,int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -460,14 +414,6 @@ public class F_Function extends F_Koneksi {
         return (SetTableDataReview(Query1, Query2));
     }
 
-    /**
-     *
-     * @param TahunDataHome
-     * @param BulanDataHome
-     * @param ComboProjectHomeItem
-     * @param ComboProjectHomeIndex
-     * @return
-     */
     public String TableYTD(int TahunDataHome, int BulanDataHome, String ComboProjectHomeItem, int ComboProjectHomeIndex) {
         String Query1;
         String Query2;
@@ -481,77 +427,47 @@ public class F_Function extends F_Koneksi {
         return (SetTableDataReview(Query1, Query2));
     }
 
-    /**
-     *
-     * @param Query
-     * @param colCount
-     * @param Static
-     * @param fromDouble
-     * @return
-     */
     public boolean SetTempData(String Query, int colCount, String Static, boolean[] fromDouble) {
-        try {
-            try (ResultSet rs = Select(Query)) {
-                rs.next();
+        Object[][] rs = Select(Query,colCount);
+        try{
                 List<String> dokumenList = new ArrayList<>();
                 dokumenList.add(Static);
-                for (int i = 1; i < colCount; i++) {
+                for (int i = 0; i < colCount; i++) {
                     if (fromDouble != null && fromDouble[i]) {
-                        Double nile = rs.getDouble(i);
+                        Double nile = Double.valueOf(String.valueOf(rs[0][i]));
                         dokumenList.add(Integer.toString(round(nile.floatValue())));
                     } else {
-                        dokumenList.add(rs.getString(i));
+                        dokumenList.add(rs[0][i].toString());
                     }
-                    rs.next();
                 }
                 TempData = new String[dokumenList.size()];
                 TempData = dokumenList.toArray(TempData);
-            }
             return true;
-        } catch (SQLException | java.lang.NullPointerException ex) {
-            ex.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e){
             return false;
         }
     }
 
-    /**
-     *
-     * @param Query
-     * @return
-     */
     public String[] SetTempData(String Query) {
         String[] cm;
-        try {
-            try (ResultSet rs = Select(Query)) {
-                rs.next();
-                List<String> dokumenList = new ArrayList<>();
-                while (!rs.isAfterLast()) {
-                    Double nile = rs.getDouble(1);
-                    dokumenList.add(Integer.toString(round(nile.floatValue())));
-                    rs.next();
-                }
-                String[] docArr = new String[dokumenList.size()];
-                docArr = dokumenList.toArray(docArr);
-                cm = docArr;
+        Object[] rs = Select(Query);
+        if(rs!=null) {
+            List<String> dokumenList = new ArrayList<>();
+            for (Object r : rs) {
+                Double nile = Double.valueOf(r.toString());
+                dokumenList.add(Integer.toString(round(nile.floatValue())));
             }
-        } catch (SQLException ex) {
+            cm = new String[dokumenList.size()];
+            cm = dokumenList.toArray(cm);
+        }else{
             List<String> dokumenList = new ArrayList<>();
                 dokumenList.add("0");
-
-            String[] docArr = new String[dokumenList.size()];
-            docArr = dokumenList.toArray(docArr);
-            cm = docArr;
+            cm = new String[dokumenList.size()];
+            cm = dokumenList.toArray(cm);
         }
         return cm;
     }
 
-    /**
-     *
-     * @param Query
-     * @param colCount
-     * @param Replacer
-     * @return
-     */
     public boolean InsertData(String Query, int colCount, String Replacer) {
         if (Replacer != null) {
             List<String> dataList = new ArrayList<>();
@@ -564,32 +480,25 @@ public class F_Function extends F_Koneksi {
         return Insert(Query);
     }
 
-    /**
-     *
-     * @param Query
-     * @param Header
-     * @return
-     */
+
     public String[] SetCombo(String Query, String Header) {
         String[] cm;
-        try {
-            try (ResultSet rs = Select(Query)) {
-                rs.next();
+        Object[] rs = Select(Query);
+        if(rs!=null) {
                 List<String> dokumenList = new ArrayList<>();
                 if (Header != null) {
                     dokumenList.add(Header);
                 }
-                while (!rs.isAfterLast()) {
-                    if (Header != null && !Header.equals(rs.getString(1))) {
-                        dokumenList.add(rs.getString(1));
-                    }
-                    rs.next();
+            for (Object r : rs) {
+                if (Header != null && !Header.equals(r)) {
+                    dokumenList.add(r.toString());
                 }
+            }
                 String[] docArr = new String[dokumenList.size()];
                 docArr = dokumenList.toArray(docArr);
                 cm = docArr;
-            }
-        } catch (SQLException ex) {
+
+        } else {
             List<String> dokumenList = new ArrayList<>();
             if (Header != null) {
                 dokumenList.add(Header);
@@ -704,25 +613,17 @@ public class F_Function extends F_Koneksi {
     }
 */
 
-    /**
-     *
-     * @param Query1
-     * @param Query2
-     * @return
-     */
 
     public String SetTableDataReview(String Query1, String Query2) {
         String data = "";
         int k = 0;
-        try {
-            try (ResultSet rs1 = Select(Query1)) {
-                try (ResultSet rs2 = Select(Query2)) {
-                    rs1.next();
-                    rs2.next();
-                    for (int i = 1; i < 11; i++) {
+        Double[][] rs1 = SelectD(Query1,10);
+        Double[][] rs2 = SelectD(Query2,10);
+        try{
+                    for (int i = 0; i < 10; i++) {
                         List<Integer> dataList = new ArrayList<>();
-                        Double target = rs1.getDouble(i);
-                        Double actual = rs2.getDouble(i);
+                        Double target = rs1[0][i];
+                        Double actual = rs2[0][i];
                         dataList.add(round(target.intValue()));
                         dataList.add(round(actual.intValue()));
                         Double fs;
@@ -759,33 +660,17 @@ public class F_Function extends F_Koneksi {
                         data += "</tr>";
                         k++;
                     }
-                }
-            }
-        } catch (SQLException | java.lang.NullPointerException ex) {
-            ex.printStackTrace();
+        } catch (NullPointerException e){
             data += "<tr><td>"+null +"</td></tr>";
         }
         return data;
     }
 
-    /**
-     *
-     * @param project
-     * @return
-     */
     public O_DataLihat LihatData(String project) {
         O_DataLihat data = new O_DataLihat();
         return data;
     }
 
-    /**
-     *
-     * @param TabelData
-     * @param project
-     * @param bulan
-     * @param tahun
-     * @param ProfitPercentActual
-     */
     public void UpdateData(String[] TabelData, String project, String bulan, String tahun, Double ProfitPercentActual) {
         String data = "";
         for (int i = 0; i < TabelData.length-1; i++) {
@@ -829,5 +714,4 @@ public class F_Function extends F_Koneksi {
         }
     }
   */
-    private static final Logger LOG = Logger.getLogger(F_Function.class.getName());
 }

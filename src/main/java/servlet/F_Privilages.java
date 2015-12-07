@@ -3,9 +3,7 @@ package servlet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 
@@ -33,16 +31,15 @@ public class F_Privilages extends F_Koneksi {
      * @return
      */
     public boolean doLogin(String Username, String Pass) {
-        String condition = "WHERE `Username` = '" + CleanInput(Username) + "' AND `Katakunci` = md5('" + CleanInput(Pass) + "')";
-        try{
-            ResultSet rs = super.Select("`Username`, `Nama`, `Level`, `LastLogin`","`dataUser`",condition);
-            rs.next();
-            user.add(0,rs.getString(1));
-            user.add(1,rs.getString(2));
-            user.add(2,rs.getString(3));
-            user.add(3,rs.getString(4));
+        String query = "SELECT `Username`, `Nama`, `Level`, `LastLogin` FROM `dataUser` WHERE `Username` = '" + CleanInput(Username) + "' AND `Katakunci` = md5('" + CleanInput(Pass) + "')";
+        Object[][] rs = Select(query, 4);
+        if (rs!=null){
+            user.add(0, rs[0][0].toString());
+            user.add(1, rs[0][1].toString());
+            user.add(2, rs[0][2].toString());
+            user.add(3, rs[0][3].toString());
             return true;
-        }catch(SQLException ex){
+        } else {
             return false;
         }
     }
@@ -56,7 +53,7 @@ public class F_Privilages extends F_Koneksi {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Date dt = new Date();
         String LastLogin = date.format(dt);
-        Update("`LastLogin` = '"+LastLogin+"'","`dataUser`","`Username` = '"+user.get(1)+"'");
+        Update("`LastLogin` = '"+LastLogin+"'","`dataUser`","`Username` = '"+this.user.get(1)+"'");
         User.setLastLogin(LastLogin);
         User.setUsername(user.get(0));
         User.setNama(user.get(1));
