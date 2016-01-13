@@ -21,15 +21,14 @@ public class F_Koneksi {
     static {
         JDBC_DRIVER = "org.postgresql.Driver";
         DATABASE_URL = System.getenv("DB_URL");
-        USER = "ugdkklluzjnfyd";
-        PASS = "6DQq3XxGJaxd8PrTY9ec-xfeki";
+        USER = System.getenv("DB_USER");
+        PASS = System.getenv("DB_PASS");
 //        DATABASE_URL = "jdbc:postgresql://localhost:5432/IntracoDB";
 //        USER = "Intraco";
 //        PASS = "r00t";
     }
     private Connection con;
     private Statement stmt;
-    private PreparedStatement pstmt;
 
     /**
      *
